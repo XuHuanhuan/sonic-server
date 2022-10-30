@@ -72,37 +72,45 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>1.2.2</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>imageBuild</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <pushImage>true</pushImage>-->
+<!--                            <imageName>sonicorg/${project.artifactId}:v${project.version}</imageName>-->
+<!--                            <baseImage>adoptopenjdk/openjdk15:alpine AS builder</baseImage>-->
+<!--                            <runs>-->
+<!--                                <run>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</run>-->
+<!--                            </runs>-->
+<!--                            <entryPoint>-->
+<!--                                ["java","-server","-XX:-UseGCOverheadLimit","-XX:+DisableExplicitGC","-XX:SurvivorRatio=1","-XX:LargePageSizeInBytes=128M","-XX:SoftRefLRUPolicyMSPerMB=0","-Djava.security.egd=file:/dev/./urandom","&#45;&#45;add-exports=java.naming/com.sun.jndi.ldap=ALL-UNNAMED","-jar","/${project.build.finalName}.jar"]-->
+<!--                            </entryPoint>-->
+<!--                            <resources>-->
+<!--                                <resource>-->
+<!--                                    <targetPath>/</targetPath>-->
+<!--                                    <directory>${project.build.directory}</directory>-->
+<!--                                    <include>${project.build.finalName}.jar</include>-->
+<!--                                </resource>-->
+<!--                            </resources>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <executions>
-                    <execution>
-                        <id>imageBuild</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <pushImage>true</pushImage>
-                            <imageName>sonicorg/${project.artifactId}:v${project.version}</imageName>
-                            <baseImage>adoptopenjdk/openjdk15:alpine AS builder</baseImage>
-                            <runs>
-                                <run>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</run>
-                            </runs>
-                            <entryPoint>
-                                ["java","-server","-XX:-UseGCOverheadLimit","-XX:+DisableExplicitGC","-XX:SurvivorRatio=1","-XX:LargePageSizeInBytes=128M","-XX:SoftRefLRUPolicyMSPerMB=0","-Djava.security.egd=file:/dev/./urandom","--add-exports=java.naming/com.sun.jndi.ldap=ALL-UNNAMED","-jar","/${project.build.finalName}.jar"]
-                            </entryPoint>
-                            <resources>
-                                <resource>
-                                    <targetPath>/</targetPath>
-                                    <directory>${project.build.directory}</directory>
-                                    <include>${project.build.finalName}.jar</include>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>15</source>
+                    <target>15</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
